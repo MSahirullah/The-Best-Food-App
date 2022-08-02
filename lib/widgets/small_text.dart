@@ -9,6 +9,7 @@ class SmallText extends StatelessWidget {
     this.size = 0,
     this.height = 1.2,
     this.overFlow = TextOverflow.visible,
+    this.align = TextAlign.left,
   }) : super(key: key);
 
   Color? color;
@@ -16,12 +17,14 @@ class SmallText extends StatelessWidget {
   double size;
   double height;
   TextOverflow overFlow;
+  TextAlign align;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
       overflow: overFlow,
+      textAlign: align,
       style: TextStyle(
         color: color,
         fontFamily: 'Roboto',

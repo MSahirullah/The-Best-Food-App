@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:food_delivery_app/pages/cart/cart_history.dart';
 import 'package:food_delivery_app/pages/cart/cart_page.dart';
 import 'package:food_delivery_app/pages/food/popular_food_detail.dart';
 import 'package:food_delivery_app/pages/food/recommended_food_detail.dart';
@@ -14,7 +15,9 @@ class RouteHelper {
   static const String popularFood = "/popular-food";
   static const String recommendedFood = "/recommended-food";
   static const String cartPage = "/cart-page";
+  static const String cartHistoryPage = "/cart-history-page";
 
+  static String getCartHistoryPage() => '$cartHistoryPage';
   static String getSplashPage() => '$splashPage';
   static String getInitial() => '$initial';
   static String getPopularFood(int pageId, String page) =>
@@ -54,7 +57,10 @@ class RouteHelper {
     GetPage(
       name: cartPage,
       page: () => const CartPage(),
-      transition: Transition.fadeIn,
+    ),
+    GetPage(
+      name: cartHistoryPage,
+      page: () => const CartHistory(),
     ),
   ];
 }

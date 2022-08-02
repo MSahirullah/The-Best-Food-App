@@ -16,6 +16,9 @@ class CartRepo {
     cart = [];
     var time = DateTime.now().toString();
 
+    // sharedPreferences.remove(AppConstants.CART_LIST);
+    // return;
+
     //converts object to string bcz sharedpreferences accept only strings
     cartList.forEach((element) {
       element.time = time;
@@ -68,7 +71,7 @@ class CartRepo {
 
     for (int i = 0; i < cart.length; i++) {
       cartHistory.add(cart[i]);
-    } 
+    }
 
     removeCart();
 

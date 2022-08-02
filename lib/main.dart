@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
 import 'package:food_delivery_app/controller/recommended_product_controller.dart';
+import 'package:food_delivery_app/pages/auth/sign_in.dart';
+import 'package:food_delivery_app/pages/auth/sign_up.dart';
 import 'package:food_delivery_app/pages/food/popular_food_detail.dart';
 import 'package:food_delivery_app/pages/food/recommended_food_detail.dart';
 import 'package:food_delivery_app/pages/home/foot_body_page.dart';
@@ -32,9 +34,9 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           title: 'Food Delivery App',
           debugShowCheckedModeBanner: false,
-          initialRoute: RouteHelper.getSplashPage(),
-          // home: SplashPage(),
-          getPages: RouteHelper.routes,
+          // initialRoute: RouteHelper.getSplashPage(),
+          home: SignInPage(),
+          // getPages: RouteHelper.routes,
         );
       });
     });
