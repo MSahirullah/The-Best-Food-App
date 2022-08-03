@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
 import 'package:food_delivery_app/widgets/small_text.dart';
 

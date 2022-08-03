@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/base/no_data_page.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/models/cart_model.dart';
@@ -24,7 +22,7 @@ class CartHistory extends StatelessWidget {
     //
     var getCartHistoryList =
         Get.find<CartController>().getCartHistoryList().reversed.toList();
-    Map<String, int> cartItemsPerOrder = Map();
+    Map<String, int> cartItemsPerOrder = {};
 
     for (int i = 0; i < getCartHistoryList.length; i++) {
       if (cartItemsPerOrder.containsKey(getCartHistoryList[i].time)) {
@@ -169,7 +167,7 @@ class CartHistory extends StatelessWidget {
                                                 : Container();
                                           }),
                                         ),
-                                        Container(
+                                        SizedBox(
                                           height: Dimentions.height20 * 4,
                                           child: Column(
                                             mainAxisAlignment:
@@ -181,9 +179,7 @@ class CartHistory extends StatelessWidget {
                                                   text: "Total",
                                                   color: AppColors.titleColor),
                                               BigText(
-                                                text: itemsPerOrder[i]
-                                                        .toString() +
-                                                    " Items",
+                                                text: "${itemsPerOrder[i]} Items",
                                                 color: AppColors.titleColor,
                                               ),
                                               GestureDetector(

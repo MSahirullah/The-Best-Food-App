@@ -97,7 +97,6 @@ class CartController extends GetxController {
 
   List<CartModel> get getItems {
     return _items.entries.map((e) {
-      print(e.value.name);
       return e.value;
     }).toList();
   }
@@ -151,4 +150,8 @@ class CartController extends GetxController {
   }
   //
 
+  void clearCartHistory() {
+    cartRepo.clearCartHistory();
+    update();
+  }
 }

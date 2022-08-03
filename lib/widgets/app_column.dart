@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -54,7 +51,7 @@ class AppColumn extends StatelessWidget {
         SizedBox(height: Dimentions.height20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             IconAndText(
               icon: Icons.circle_sharp,
               text: "Normal",

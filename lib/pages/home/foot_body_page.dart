@@ -1,14 +1,8 @@
-import 'dart:math';
-
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
 import 'package:food_delivery_app/controller/recommended_product_controller.dart';
 import 'package:food_delivery_app/models/product_model.dart';
-import 'package:food_delivery_app/pages/food/popular_food_detail.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/colors.dart';
@@ -30,8 +24,8 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
   PageController pageController = PageController(viewportFraction: 0.85);
 
   var _currentPageValue = 0.0;
-  double _scaleFactor = 0.8;
-  double _height = Dimentions.pageViewContainer;
+  final double _scaleFactor = 0.8;
+  final double _height = Dimentions.pageViewContainer;
 
   @override
   void initState() {
@@ -56,7 +50,7 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
         //Slider Section
         GetBuilder<PopularProductController>(builder: (popularProducts) {
           return popularProducts.isLoaded
-              ? Container(
+              ? SizedBox(
                   height: Dimentions.pageView,
                   child: PageView.builder(
                       controller: pageController,
@@ -66,7 +60,7 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
                             popularProducts.popularProductList[position]);
                       }),
                 )
-              : CircularProgressIndicator(
+              : const CircularProgressIndicator(
                   color: AppColors.mainColor,
                 );
         }),
@@ -190,7 +184,7 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
-                                        children: [
+                                        children: const [
                                           IconAndText(
                                             icon: Icons.circle_sharp,
                                             text: "Normal",
@@ -218,7 +212,7 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
                     );
                   },
                 )
-              : CircularProgressIndicator(
+              : const CircularProgressIndicator(
                   color: AppColors.mainColor,
                 );
         }),
@@ -270,7 +264,9 @@ class _FoodBodyPageState extends State<FoodBodyPage> {
                   left: Dimentions.width10, right: Dimentions.width10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimentions.radius25),
-                color: index.isEven ? Color(0XFF69c5df) : Color(0xFF9294cc),
+                color: index.isEven
+                    ? const Color(0XFF69c5df)
+                    : const Color(0xFF9294cc),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(

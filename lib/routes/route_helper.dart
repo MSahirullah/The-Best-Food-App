@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:food_delivery_app/pages/auth/sign_in.dart';
+import 'package:food_delivery_app/pages/auth/sign_up.dart';
 import 'package:food_delivery_app/pages/cart/cart_history.dart';
 import 'package:food_delivery_app/pages/cart/cart_page.dart';
 import 'package:food_delivery_app/pages/food/popular_food_detail.dart';
 import 'package:food_delivery_app/pages/food/recommended_food_detail.dart';
 import 'package:food_delivery_app/pages/home/home_page.dart';
-import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/pages/splash/splash_page.dart';
 import 'package:get/get.dart';
 
@@ -16,17 +16,29 @@ class RouteHelper {
   static const String recommendedFood = "/recommended-food";
   static const String cartPage = "/cart-page";
   static const String cartHistoryPage = "/cart-history-page";
+  static const String signIn = "/sign-in";
+  static const String signUp = "/sign-up";
 
-  static String getCartHistoryPage() => '$cartHistoryPage';
-  static String getSplashPage() => '$splashPage';
-  static String getInitial() => '$initial';
+  static String getSignInPage() => signIn;
+  static String getSignUpPage() => signUp;
+  static String getCartHistoryPage() => cartHistoryPage;
+  static String getSplashPage() => splashPage;
+  static String getInitial() => initial;
   static String getPopularFood(int pageId, String page) =>
       '$popularFood?pageId=$pageId&page=$page';
   static String getRecommendedFood(int pageId, String page) =>
       '$recommendedFood?pageId=$pageId&page=$page';
-  static String getCartPage() => '$cartPage';
+  static String getCartPage() => cartPage;
 
   static List<GetPage> routes = [
+    GetPage(
+        name: signIn,
+        page: () => const SignInPage(),
+        transition: Transition.fade),
+    GetPage(
+        name: signUp,
+        page: () => const SignUpPage(),
+        transition: Transition.fade),
     GetPage(
       name: splashPage,
       page: () => const SplashPage(),

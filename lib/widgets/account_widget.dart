@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
@@ -26,7 +23,7 @@ class AccountWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 1,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
             color: Colors.grey.withOpacity(0.2),
           ),
         ],

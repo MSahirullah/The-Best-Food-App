@@ -1,11 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
-import 'package:food_delivery_app/pages/cart/cart_page.dart';
-import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/app_constants.dart';
 import 'package:food_delivery_app/utils/colors.dart';
@@ -14,8 +9,6 @@ import 'package:food_delivery_app/widgets/app_column.dart';
 import 'package:food_delivery_app/widgets/app_icon.dart';
 import 'package:food_delivery_app/widgets/big_text.dart';
 import 'package:food_delivery_app/widgets/expandable_text.dart';
-import 'package:food_delivery_app/widgets/icon_and_text.dart';
-import 'package:food_delivery_app/widgets/small_text.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
@@ -75,14 +68,15 @@ class PopularFoodDetail extends StatelessWidget {
                 GetBuilder<PopularProductController>(builder: (controller) {
                   return GestureDetector(
                     onTap: () {
-                      if (controller.totalItems >= 1)
+                      if (controller.totalItems >= 1) {
                         Get.toNamed(RouteHelper.getCartPage());
+                      }
                     },
                     child: Stack(
                       children: [
-                        AppIcon(icon: Icons.add_shopping_cart_outlined),
+                        const AppIcon(icon: Icons.add_shopping_cart_outlined),
                         controller.totalItems >= 1
-                            ? Positioned(
+                            ? const Positioned(
                                 right: 0,
                                 top: 0,
                                 child: AppIcon(
@@ -125,7 +119,7 @@ class PopularFoodDetail extends StatelessWidget {
                 right: Dimentions.width20,
                 top: Dimentions.height20,
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
@@ -189,7 +183,7 @@ class PopularFoodDetail extends StatelessWidget {
                         onTap: () {
                           popularProduct.setQuantity(false);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.remove,
                           color: AppColors.signColor,
                         ),
@@ -201,7 +195,7 @@ class PopularFoodDetail extends StatelessWidget {
                         onTap: () {
                           popularProduct.setQuantity(true);
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.add,
                           color: AppColors.signColor,
                         ),

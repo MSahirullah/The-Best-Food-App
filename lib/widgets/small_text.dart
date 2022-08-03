@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
 
+// ignore: must_be_immutable
 class SmallText extends StatelessWidget {
   SmallText({
     Key? key,

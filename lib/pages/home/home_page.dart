@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:food_delivery_app/pages/account/account_page.dart';
-import 'package:food_delivery_app/pages/auth/sign_up.dart';
 import 'package:food_delivery_app/pages/cart/cart_history.dart';
+import 'package:food_delivery_app/pages/cart/cart_page.dart';
 import 'package:food_delivery_app/pages/home/main_food_page.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -22,15 +20,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     _controller = PersistentTabController(initialIndex: 0);
   }
-
-  List pages = [
-    MainFoodPage(),
-    Center(child: Text("2")),
-    CartHistory(),
-    Center(child: Text("4")),
-  ];
-
-  int _selectedIndex = 0;
 
   // @override
   // Widget build(BuildContext context) {
@@ -69,35 +58,35 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> _buildScreens() {
     return [
-      MainFoodPage(),
-      SignUpPage(),
-      CartHistory(),
-      AccountPage(),
+      const MainFoodPage(),
+      const CartPage(),
+      const CartHistory(),
+      const AccountPage(),
     ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: ("Home"),
         activeColorPrimary: AppColors.mainColor,
         inactiveColorPrimary: Colors.amberAccent,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.archive),
-        title: ("History"),
-        activeColorPrimary: AppColors.mainColor,
-        inactiveColorPrimary: Colors.amberAccent,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.shopping_cart),
+        icon: const Icon(Icons.shopping_cart),
         title: ("Cart"),
         activeColorPrimary: AppColors.mainColor,
         inactiveColorPrimary: Colors.amberAccent,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
+        icon: const Icon(Icons.archive),
+        title: ("History"),
+        activeColorPrimary: AppColors.mainColor,
+        inactiveColorPrimary: Colors.amberAccent,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.person),
         title: ("Profile"),
         activeColorPrimary: AppColors.mainColor,
         inactiveColorPrimary: Colors.amberAccent,
@@ -124,21 +113,16 @@ class _HomePageState extends State<HomePage> {
       ),
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
-      itemAnimationProperties: ItemAnimationProperties(
+      itemAnimationProperties: const ItemAnimationProperties(
         duration: Duration(milliseconds: 200),
         curve: Curves.ease,
       ),
-      screenTransitionAnimation: ScreenTransitionAnimation(
+      screenTransitionAnimation: const ScreenTransitionAnimation(
         animateTabTransition: true,
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
       navBarStyle: NavBarStyle.style1,
     );
-  }
-
-  void _onTap(int index) {
-    _selectedIndex = index;
-    setState(() {});
   }
 }
