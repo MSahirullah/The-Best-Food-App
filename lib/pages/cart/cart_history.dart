@@ -179,7 +179,8 @@ class CartHistory extends StatelessWidget {
                                                   text: "Total",
                                                   color: AppColors.titleColor),
                                               BigText(
-                                                text: "${itemsPerOrder[i]} Items",
+                                                text:
+                                                    "${itemsPerOrder[i]} Items",
                                                 color: AppColors.titleColor,
                                               ),
                                               GestureDetector(

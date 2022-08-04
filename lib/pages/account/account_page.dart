@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/colors.dart';
@@ -25,6 +26,31 @@ class AccountPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
         centerTitle: true,
+        actions: [
+          Get.find<AuthController>().userLoggedIn()
+              ? Container(
+                  padding: EdgeInsets.all(
+                    Dimentions.height10 / 2,
+                  ),
+                  margin: EdgeInsets.only(
+                    right: Dimentions.width15,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {
+                      if (Get.find<AuthController>().userLoggedIn()) {
+                        Get.find<AuthController>().clearSharedData();
+                        Get.find<CartController>().clear();
+                        Get.find<CartController>().clearCartHistory();
+                        Get.toNamed(RouteHelper.getSignInPage());
+                      }
+                    },
+                    child: const Icon(
+                      Icons.logout,
+                    ),
+                  ),
+                )
+              : Container(),
+        ],
         title: BigText(
           text: "Profile",
           size: Dimentions.font20,
@@ -65,6 +91,7 @@ class AccountPage extends StatelessWidget {
                                   ),
                                   bigText: BigText(
                                     text: userController.userModel.name,
+                                    size: Dimentions.font18,
                                   ),
                                 ),
                                 SizedBox(height: Dimentions.height20),
@@ -79,6 +106,7 @@ class AccountPage extends StatelessWidget {
                                   ),
                                   bigText: BigText(
                                     text: userController.userModel.phone,
+                                    size: Dimentions.font18,
                                   ),
                                 ),
                                 SizedBox(height: Dimentions.height20),
@@ -93,22 +121,58 @@ class AccountPage extends StatelessWidget {
                                   ),
                                   bigText: BigText(
                                     text: userController.userModel.email,
+                                    size: Dimentions.font18,
                                   ),
                                 ),
                                 SizedBox(height: Dimentions.height20),
                                 //address
-                                AccountWidget(
-                                  appIcon: AppIcon(
-                                    icon: Icons.location_on,
-                                    backgroundColor: AppColors.yellowColor,
-                                    iconColor: Colors.white,
-                                    iconSize: Dimentions.height25,
-                                    size: Dimentions.height25 * 2,
-                                  ),
-                                  bigText: BigText(
-                                    text: "Locate your address",
-                                  ),
-                                ),
+                                GetBuilder<LocationController>(
+                                    builder: (locationController) {
+                                  if (userLoggedIn &&
+                                      locationController.addressList.isEmpty) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                            RouteHelper.getAddressPage());
+                                      },
+                                      child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          backgroundColor:
+                                              AppColors.yellowColor,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimentions.height25,
+                                          size: Dimentions.height25 * 2,
+                                        ),
+                                        bigText: BigText(
+                                          text: "Locate your address",
+                                          size: Dimentions.font18,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(
+                                            RouteHelper.getAddressPage());
+                                      },
+                                      child: AccountWidget(
+                                        appIcon: AppIcon(
+                                          icon: Icons.location_on,
+                                          backgroundColor:
+                                              AppColors.yellowColor,
+                                          iconColor: Colors.white,
+                                          iconSize: Dimentions.height25,
+                                          size: Dimentions.height25 * 2,
+                                        ),
+                                        bigText: BigText(
+                                          text: "Add your address",
+                                          size: Dimentions.font18,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }),
                                 SizedBox(height: Dimentions.height20),
                                 //message
                                 AccountWidget(
@@ -121,6 +185,7 @@ class AccountPage extends StatelessWidget {
                                   ),
                                   bigText: BigText(
                                     text: "Messages",
+                                    size: Dimentions.font18,
                                   ),
                                 ),
 
@@ -135,6 +200,8 @@ class AccountPage extends StatelessWidget {
                                       Get.find<CartController>().clear();
                                       Get.find<CartController>()
                                           .clearCartHistory();
+                                      Get.find<LocationController>()
+                                          .clearAddressList();
                                       Get.toNamed(RouteHelper.getSignInPage());
                                     }
                                   },
@@ -148,6 +215,7 @@ class AccountPage extends StatelessWidget {
                                     ),
                                     bigText: BigText(
                                       text: "Logout",
+                                      size: Dimentions.font18,
                                     ),
                                   ),
                                 ),
@@ -162,69 +230,69 @@ class AccountPage extends StatelessWidget {
                   )
                 : const CustomLoader())
             : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Image(
-                      height: Dimentions.height20 * 12,
-                      width: Dimentions.width20 * 12,
-                      image: const AssetImage(
-                        "assets/images/auth.png",
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Dimentions.height20 * 3,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(RouteHelper.getSignInPage());
-                    },
-                    child: Container(
-                      width: Dimentions.screenWidth / 2,
-                      height: Dimentions.height20 * 2.5,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimentions.radius25),
-                        color: AppColors.mainColor,
-                      ),
-                      child: Center(
-                        child: BigText(
-                          text: "Sign In",
-                          size: Dimentions.font20,
-                          color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Image(
+                        height: Dimentions.height20 * 12,
+                        width: Dimentions.width20 * 12,
+                        image: const AssetImage(
+                          "assets/images/auth.png",
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: Dimentions.height20,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(RouteHelper.getSignUpPage());
-                    },
-                    child: Container(
-                      width: Dimentions.screenWidth / 2,
-                      height: Dimentions.height20 * 2.5,
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimentions.radius25),
-                        color: AppColors.yellowColor,
-                      ),
-                      child: Center(
-                        child: BigText(
-                          text: "Sign Up",
-                          size: Dimentions.font20,
-                          color: Colors.white,
+                    SizedBox(
+                      height: Dimentions.height20 * 3,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getSignInPage());
+                      },
+                      child: Container(
+                        width: Dimentions.screenWidth / 2,
+                        height: Dimentions.height20 * 2.5,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimentions.radius25),
+                          color: AppColors.mainColor,
+                        ),
+                        child: Center(
+                          child: BigText(
+                            text: "Sign In",
+                            size: Dimentions.font20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            );
+                    SizedBox(
+                      height: Dimentions.height20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(RouteHelper.getSignUpPage());
+                      },
+                      child: Container(
+                        width: Dimentions.screenWidth / 2,
+                        height: Dimentions.height20 * 2.5,
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimentions.radius25),
+                          color: AppColors.yellowColor,
+                        ),
+                        child: Center(
+                          child: BigText(
+                            text: "Sign Up",
+                            size: Dimentions.font20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
       }),
     );
   }

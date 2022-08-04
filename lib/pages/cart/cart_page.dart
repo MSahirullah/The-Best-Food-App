@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery_app/base/no_data_page.dart';
 import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/cart_controller.dart';
+import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
 import 'package:food_delivery_app/controller/recommended_product_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
@@ -73,8 +74,8 @@ class CartPage extends StatelessWidget {
                     child: MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
-                      child: GetBuilder<CartController>(
-                          builder: (cartController) {
+                      child:
+                          GetBuilder<CartController>(builder: (cartController) {
                         var cartList = cartController.getItems;
 
                         return ListView.builder(
@@ -83,8 +84,8 @@ class CartPage extends StatelessWidget {
                             return Container(
                               height: Dimentions.height20 * 5,
                               width: double.maxFinite,
-                              margin: EdgeInsets.only(
-                                  bottom: Dimentions.height10),
+                              margin:
+                                  EdgeInsets.only(bottom: Dimentions.height10),
                               child: Row(
                                 children: [
                                   GestureDetector(
@@ -96,15 +97,13 @@ class CartPage extends StatelessWidget {
                                                   cartList[index].product!);
 
                                       if (popularIndex >= 0) {
-                                        Get.toNamed(
-                                            RouteHelper.getPopularFood(
-                                                popularIndex, "cartPage"));
+                                        Get.toNamed(RouteHelper.getPopularFood(
+                                            popularIndex, "cartPage"));
                                       } else {
                                         var recommendedIndex = Get.find<
                                                 RecommendedProductController>()
                                             .recommendedProductList
-                                            .indexOf(
-                                                cartList[index].product!);
+                                            .indexOf(cartList[index].product!);
 
                                         if (recommendedIndex < 0) {
                                           Get.snackbar("History Product",
@@ -153,8 +152,7 @@ class CartPage extends StatelessWidget {
                                           SmallText(text: "Spicy"),
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceBetween,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               BigText(
                                                 text:
@@ -163,8 +161,7 @@ class CartPage extends StatelessWidget {
                                               ),
                                               Container(
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical:
-                                                      Dimentions.height10,
+                                                  vertical: Dimentions.height10,
                                                   horizontal:
                                                       Dimentions.width10,
                                                 ),
@@ -178,42 +175,38 @@ class CartPage extends StatelessWidget {
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        cartController
-                                                            .addItem(
-                                                                cartList[
-                                                                        index]
-                                                                    .product!,
-                                                                -1);
+                                                        cartController.addItem(
+                                                            cartList[index]
+                                                                .product!,
+                                                            -1);
                                                       },
                                                       child: const Icon(
                                                         Icons.remove,
-                                                        color: AppColors
-                                                            .signColor,
+                                                        color:
+                                                            AppColors.signColor,
                                                       ),
                                                     ),
                                                     SizedBox(
-                                                        width: Dimentions
-                                                            .width10),
+                                                        width:
+                                                            Dimentions.width10),
                                                     BigText(
                                                         text: cartList[index]
                                                             .quantity!
                                                             .toString()),
                                                     SizedBox(
-                                                        width: Dimentions
-                                                            .width10),
+                                                        width:
+                                                            Dimentions.width10),
                                                     GestureDetector(
                                                       onTap: () {
-                                                        cartController
-                                                            .addItem(
-                                                                cartList[
-                                                                        index]
-                                                                    .product!,
-                                                                1);
+                                                        cartController.addItem(
+                                                            cartList[index]
+                                                                .product!,
+                                                            1);
                                                       },
                                                       child: const Icon(
                                                         Icons.add,
-                                                        color: AppColors
-                                                            .signColor,
+                                                        color:
+                                                            AppColors.signColor,
                                                       ),
                                                     ),
                                                   ],
@@ -282,7 +275,13 @@ class CartPage extends StatelessWidget {
                         onTap: () {
                           //check
                           if (Get.find<AuthController>().userLoggedIn()) {
-                            cartController.addToHistory();
+                            if (Get.find<LocationController>()
+                                .addressList
+                                .isEmpty) {
+                              Get.toNamed(RouteHelper.getAddressPage());
+                            } else {
+                              cartController.addToHistory();
+                            }
                           } else {
                             Get.toNamed(RouteHelper.getSignInPage());
                           }

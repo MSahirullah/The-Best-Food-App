@@ -16,17 +16,14 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var passwordController = TextEditingController();
-    var emailController = TextEditingController();
+    var phoneController = TextEditingController();
 
     void _login(AuthController authController) {
-      String email = emailController.text.trim();
+      String phone = phoneController.text.trim();
       String password = passwordController.text.trim();
 
-      if (email.isEmpty) {
+      if (phone.isEmpty) {
         showCustomSnackBar("Type in a your email address",
-            title: "Email address");
-      } else if (!GetUtils.isEmail(email)) {
-        showCustomSnackBar("Type in a valid email address",
             title: "Email address");
       } else if (password.isEmpty) {
         showCustomSnackBar("Type in a your password", title: "Password");
@@ -34,9 +31,9 @@ class SignInPage extends StatelessWidget {
         showCustomSnackBar("Password can not be less than siz characters",
             title: "Password");
       } else {
-        authController.login(email, password).then((status) {
+        authController.login(phone, password).then((status) {
           if (status.isSuccess) {
-            Get.toNamed(RouteHelper.getCartPage());
+            Get.toNamed(RouteHelper.getInitial());
           } else {
             showCustomSnackBar(status.message);
           }
@@ -98,9 +95,9 @@ class SignInPage extends StatelessWidget {
 
 //phone
                     TextFieldWidget(
-                      controller: emailController,
-                      hintText: "Email",
-                      icon: Icons.email,
+                      controller: phoneController,
+                      hintText: "Phone",
+                      icon: Icons.phone,
                     ),
                     SizedBox(
                       height: Dimentions.height20,
@@ -167,7 +164,8 @@ class SignInPage extends StatelessWidget {
                           children: [
                             TextSpan(
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => Get.toNamed(RouteHelper.getSignUpPage()),
+                                ..onTap = () =>
+                                    Get.toNamed(RouteHelper.getSignUpPage()),
                               text: "Create",
                               style: TextStyle(
                                   color: Colors.black87,
