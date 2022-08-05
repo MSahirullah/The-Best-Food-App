@@ -32,6 +32,18 @@ class LocationController extends GetxController implements GetxService {
   Position get pickPosition => _pickPosition;
   Placemark get placeMark => _placeMark;
   Placemark get pickplaceMark => _pickplaceMark;
+  GoogleMapController get mapController => _mapController;
+
+//for service zone
+  bool _isLoading = false;
+  //whether the user is in service zone or not
+  bool _inZone = false;
+  //showing and hiding button as the map loads
+  bool _buttonDisabled = true;
+
+  bool get isLoading => _isLoading;
+  bool get inZone => _inZone;
+  bool get buttonDisabled => _buttonDisabled;
 
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
@@ -67,6 +79,14 @@ class LocationController extends GetxController implements GetxService {
           );
         }
 
+        ResponseModel responseModel = await getZone(
+            position.target.latitude.toString(),
+            position.target.longitude.toString(),
+            false);
+
+        //if button value is false we are in the serveice area
+        _buttonDisabled = !responseModel.isSuccess;
+
         if (_changedAddress) {
           String address = await getAddressfromGeoCode(LatLng(
             position.target.latitude,
@@ -79,7 +99,11 @@ class LocationController extends GetxController implements GetxService {
       } catch (e) {
         print(e);
       }
+      _loading = false;
+    } else {
+      _updateAddressData = true;
     }
+    update();
   }
 
   Future<String> getAddressfromGeoCode(LatLng latlng) async {
@@ -177,5 +201,52 @@ class LocationController extends GetxController implements GetxService {
     _addressList = [];
     _allAddressList = [];
     update();
+  }
+
+  String getUserAddressFromLocalStorage() {
+    return locationRepo.getUserAddress();
+  }
+
+  void setAddressData() {
+    _position = _pickPosition;
+    _placeMark = _pickplaceMark;
+    _updateAddressData = false;
+    update();
+  }
+
+  Future<ResponseModel> getZone(String lat, String lng, bool markerLoad) async {
+    late ResponseModel responseModel;
+
+    if (markerLoad) {
+      _loading = true;
+    } else {
+      _isLoading = true;
+    }
+    update();
+
+    Response response = await locationRepo.getZone(lat, lng);
+    if (response.statusCode == 200) {
+      // if (response.body["zone_id"] != 2) {
+      //   responseModel =
+      //       ResponseModel(false, response.body["zone_id"].toString());
+      //   _inZone = false;
+      // } else {
+        responseModel =
+            ResponseModel(true, response.body["zone_id"].toString());
+        _inZone = true;
+      // }
+    } else {
+      _inZone = false;
+      responseModel = ResponseModel(true, response.statusText!);
+    }
+    if (markerLoad) {
+      _loading = false;
+    } else {
+      _isLoading = false;
+    }
+    print(response.statusCode);
+    update();
+
+    return responseModel;
   }
 }

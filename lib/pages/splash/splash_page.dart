@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/popular_product_controller.dart';
 import 'package:food_delivery_app/controller/recommended_product_controller.dart';
+import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
 import 'package:get/get.dart';
@@ -42,6 +44,11 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if (userLoggedIn) {
+      Get.find<UserController>().getUserInfo();
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(

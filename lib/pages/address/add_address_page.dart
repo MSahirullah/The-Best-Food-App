@@ -3,6 +3,7 @@ import 'package:food_delivery_app/controller/auth_controller.dart';
 import 'package:food_delivery_app/controller/location_controller.dart';
 import 'package:food_delivery_app/controller/user_controller.dart';
 import 'package:food_delivery_app/models/address_model.dart';
+import 'package:food_delivery_app/pages/address/pick_address_map.dart';
 import 'package:food_delivery_app/routes/route_helper.dart';
 import 'package:food_delivery_app/utils/colors.dart';
 import 'package:food_delivery_app/utils/dimentions.dart';
@@ -38,6 +39,12 @@ class _AddAddressPageState extends State<AddAddressPage> {
       Get.find<UserController>().getUserInfo();
     }
     if (Get.find<LocationController>().addressList.isNotEmpty) {
+      if (Get.find<LocationController>().getUserAddressFromLocalStorage() ==
+          "") {
+        Get.find<LocationController>()
+            .saveUserAddress(Get.find<LocationController>().addressList.last);
+      }
+
       Get.find<LocationController>().getAddressList();
       _cameraPosition = CameraPosition(
         target: LatLng(
@@ -94,6 +101,15 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   child: Stack(
                     children: [
                       GoogleMap(
+                        onTap: (latlng) {
+                          Get.toNamed(RouteHelper.getPickAddressPage(),
+                              arguments: PickAddressMap(
+                                fromSignUp: false,
+                                fromAddress: true,
+                                googleMapController:
+                                    locationController.mapController,
+                              ));
+                        },
                         initialCameraPosition: CameraPosition(
                           target: _initializePosition,
                           zoom: 17,
@@ -112,6 +128,15 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         onMapCreated: ((controller) {
                           locationController.setMapController(controller);
                         }),
+                      ),
+                      Center(
+                        child: !locationController.loading
+                            ? Image.asset(
+                                "assets/images/pick_mark.png",
+                                height: Dimentions.height20 * 1.5,
+                                width: Dimentions.width20 * 1.5,
+                              )
+                            : CircularProgressIndicator(),
                       ),
                     ],
                   ),
@@ -255,7 +280,8 @@ class _AddAddressPageState extends State<AddAddressPage> {
                       horizontal: Dimentions.width20,
                     ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimentions.radius20),
+                      borderRadius:
+                          BorderRadius.circular(Dimentions.radius20 / 2),
                       color: AppColors.mainColor,
                     ),
                     child: BigText(
