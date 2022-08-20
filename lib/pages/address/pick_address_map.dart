@@ -43,7 +43,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
             Get.find<LocationController>().postion.longitude);
         _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
       } else {
-        _initialPosition = LatLng(7.2479, 80.4681);
+        _initialPosition = const LatLng(7.2479, 80.4681);
         _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
       }
     } else {
@@ -58,7 +58,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
       }
       //remove
       else {
-        _initialPosition = LatLng(7.2479, 80.4681);
+        _initialPosition = const LatLng(7.2479, 80.4681);
         _cameraPosition = CameraPosition(target: _initialPosition, zoom: 17);
       }
     }
@@ -94,44 +94,58 @@ class _PickAddressMapState extends State<PickAddressMap> {
                             height: Dimentions.height25 * 2,
                             width: Dimentions.width25 * 2,
                           )
-                        : CircularProgressIndicator(),
+                        : const CircularProgressIndicator(),
                   ),
                   Positioned(
                     top: Dimentions.height30,
                     left: Dimentions.width20,
                     right: Dimentions.width20,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: Dimentions.width10,
-                      ),
-                      height: Dimentions.height25 * 2,
-                      decoration: BoxDecoration(
-                        color: AppColors.mainColor,
-                        borderRadius: BorderRadius.circular(
-                          Dimentions.radius20 * 0.5,
+                    child: InkWell(
+                      onTap: () {
+                        
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: Dimentions.width10,
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.location_on,
-                            size: Dimentions.height25,
-                            color: Colors.white,
+                        height: Dimentions.height25 * 2,
+                        decoration: BoxDecoration(
+                          color: AppColors.mainColor,
+                          borderRadius: BorderRadius.circular(
+                            Dimentions.radius20 * 0.5,
                           ),
-                          SizedBox(
-                            width: Dimentions.width10,
-                          ),
-                          Expanded(
-                            child: Text(
-                              '${locationController.pickplaceMark.name ?? 'Pick your address'}',
-                              style: TextStyle(
-                                  fontSize: Dimentions.font15,
-                                  color: Colors.white),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              size: Dimentions.height25,
+                              color: Colors.white,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: Dimentions.width10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                locationController.pickplaceMark.name ??
+                                    'Pick your address',
+                                style: TextStyle(
+                                    fontSize: Dimentions.font15,
+                                    color: Colors.white),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              width: Dimentions.width10,
+                            ),
+                            Icon(
+                              Icons.search,
+                              size: 25,
+                              color: AppColors.yellowColor,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -140,7 +154,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                     left: Dimentions.width20,
                     right: Dimentions.width20,
                     child: locationController.isLoading
-                        ? Center(
+                        ? const Center(
                             child: CircularProgressIndicator(),
                           )
                         : CustomButton(
