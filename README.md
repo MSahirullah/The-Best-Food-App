@@ -9,11 +9,11 @@
     <th width=180>Profile Screen </th>
   </tr>
   <tr>
-    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Loading%20Screen.png" width="150" height="300" ></td>
-    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Login%20Screen.png" width="150" height="300"></td>
-    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Register%20Screen.png" width="150" height="300"></td>
-    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Home%20Screen.png" width="150" height="300"></td>
-    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Profile%20Screen.png" width="150" height="300"></td>
+    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Loading%20Screen.png" width="150" height="350" ></td>
+    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Login%20Screen.png" width="150" height="350"></td>
+    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Register%20Screen.png" width="150" height="350"></td>
+    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Home%20Screen.png" width="150" height="350"></td>
+    <td><img src="https://github.com/MSahirullah/The-Best-Food-App/blob/main/assets/images/UI/Profile%20Screen.png" width="150" height="350"></td>
   </tr>
     <tr>
     <th width=180>Popular Food Detail Screen</th>
